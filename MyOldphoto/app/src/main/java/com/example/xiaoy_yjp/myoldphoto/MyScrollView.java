@@ -31,7 +31,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
     /**
      * 每页要加载的图片数量
      */
-    public static final int PAGE_SIZE = 15;
+    public static final int PAGE_SIZE = 18;
 
     /**
      * 记录当前已加载到第几页
@@ -227,7 +227,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
                     task.execute(imageUrl);
                 }
             } else {
-                imageView.setImageResource(R.drawable.xz_01);
+               // imageView.setImageResource(R.drawable.xz_01);
             }
         }
     }

@@ -35,6 +35,7 @@ public class MyPhotoActivity extends BaseActivity  {
     int num = 0;
     private LinearLayout contentLlayout;
     private ImageView addImg;
+    public Uri dog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class MyPhotoActivity extends BaseActivity  {
 
     public void imglist(){
         File dir = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
+        File dirr = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/20181009114128.jpg");
         File file[] = dir.listFiles();
         for (int i = 0; i < file.length; i++) {
             if (file[i].isFile())
@@ -72,7 +74,7 @@ public class MyPhotoActivity extends BaseActivity  {
                     imagePathArray.add(icon);
             }
         }
-
+        dog = Uri.fromFile(dirr);
     }
 
     public void imgselect(){
@@ -83,15 +85,14 @@ public class MyPhotoActivity extends BaseActivity  {
 
             for (int i = 0; i < files.length; i++) {
 
-                System.out.println("文件夹下的文件：" + files[i].getName());
+              //  uri[i] = files[i].getName();
 
             }
             num = files.length;
+
         }
 
     }
-
-
 
 
 }

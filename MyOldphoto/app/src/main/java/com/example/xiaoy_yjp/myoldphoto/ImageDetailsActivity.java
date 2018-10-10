@@ -9,7 +9,7 @@ import android.view.Window;
 /**
  * 查看大图的Activity界面。
  *
- * @author guolin
+ *
  */
 public class ImageDetailsActivity extends Activity {
 
