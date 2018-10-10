@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">老照片三人组</string>
+    <string name="paizhaoxuanqu">拍照选取</string>
+    <string name="xiangcexuanqu">相册选取</string>
+    <string name="exit">取消</string>
+    <string name="border_top">Border Top</string>
+    <string name="border_bottom">Border Bottom</string>
+    <string name="image_url">Image Url</string>
+    <string name="title_activity_line">线性布局</string>
+    <string name="title_activity_grid">网格布局</string>
+    <string name="title_activity_staggerde">交错网格布局</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
