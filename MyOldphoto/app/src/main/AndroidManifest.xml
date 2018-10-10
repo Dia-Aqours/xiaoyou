@@ -36,7 +36,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
         <!-- 往SDCard写入数据权限 -->
-
     </application>
 
 </manifest>

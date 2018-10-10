@@ -9,8 +9,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.io.File;
+import java.util.Vector;
 
 
 public class MyPhotoActivity extends BaseActivity  {
@@ -18,7 +20,7 @@ public class MyPhotoActivity extends BaseActivity  {
     private ImageView photo2;
     private ImageView emptyy;
     private ImageView imgShow;
-    private File fileCropUri = new File(Environment.getExternalStorageDirectory().getPath() + "/picture/crop_photo.jpg");
+    private File fileCrUri = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
     private File fileUri = new File(Environment.getExternalStorageDirectory().getPath() + "/picture/crop_photo.jpg");
     private static final int CODE_GALLERY_REQUEST = 0xa0;
     private static final int CODE_CAMERA_REQUEST = 0xa1;
@@ -27,8 +29,12 @@ public class MyPhotoActivity extends BaseActivity  {
     private Uri cropImageUri;
     Button button2;
     String s = Environment.getExternalStorageDirectory().getAbsolutePath() + "/picture/crop_photo 0.jpg";
-
-
+    private LinearLayout llGroup;
+    Vector<String> imagePathArray=new Vector<String>();
+    String a[];
+    int num = 0;
+    private LinearLayout contentLlayout;
+    private ImageView addImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +51,48 @@ public class MyPhotoActivity extends BaseActivity  {
             }
 
         });
+        imglist();
+        imgselect();
     }
 
     public static boolean hasSdcard() {
         String state = Environment.getExternalStorageState();
         return state.equals(Environment.MEDIA_MOUNTED);
     }
+
+    public void imglist(){
+        File dir = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
+        File file[] = dir.listFiles();
+        for (int i = 0; i < file.length; i++) {
+            if (file[i].isFile())
+            {
+                String icon=file[i].getAbsolutePath();
+                if (icon.endsWith(".png") || icon.endsWith(".PNG") ||//这里仅仅加入png和jpg文件格式，需要其他格式就在这里增加判断
+                        icon.endsWith(".jpg") || icon.endsWith(".jpg"))
+                    imagePathArray.add(icon);
+            }
+        }
+
+    }
+
+    public void imgselect(){
+        File sceneFile = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
+        File[] files = sceneFile.listFiles();
+
+        if (null != files) {
+
+            for (int i = 0; i < files.length; i++) {
+
+                System.out.println("文件夹下的文件：" + files[i].getName());
+
+            }
+            num = files.length;
+        }
+
+    }
+
+
+
 
 }
 

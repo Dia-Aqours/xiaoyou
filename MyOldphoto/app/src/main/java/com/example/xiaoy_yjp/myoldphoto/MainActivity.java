@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity  {
     String dir = Environment.getExternalStorageDirectory().getAbsolutePath() +"/picture/";
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -254,35 +255,7 @@ public class MainActivity extends BaseActivity  {
         return state.equals(Environment.MEDIA_MOUNTED);
     }
 
-    //获取内部存储状态  
-//    public void savephoto(){
-//        Bundle bundle = data.getExtras();
-//        Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
-//        String str=null;
-//        FileOutputStream b = null;
-//        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
-//        file.mkdirs();// 创建文件夹，名称为myimage
-//        Date date=null;
-//        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");//获取当前时间，进一步转化为字符串
-//        date =new Date();
-//        str=format.format(date);
-//        String fileName = "/myImage/"+str+".jpg";
-//        try {
-//            b = new FileOutputStream(fileName);
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                b.flush();
-//                b.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        copyNameF = fileName ;
-//    }
+
 
 }
 
