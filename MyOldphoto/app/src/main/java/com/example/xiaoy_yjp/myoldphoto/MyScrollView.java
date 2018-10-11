@@ -2,7 +2,6 @@ package com.example.xiaoy_yjp.myoldphoto;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
@@ -32,7 +31,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
     /**
      * 每页要加载的图片数量
      */
-    public static final int PAGE_SIZE = 18;
+    public static final int PAGE_SIZE = 30;
 
     /**
      * 记录当前已加载到第几页
@@ -187,18 +186,19 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
         if (hasSDCard()) {
             File sceneFile = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
             String[] fff = sceneFile.list();
+            Images.imageUrls = fff;
             int startIndex = page * PAGE_SIZE;
             int endIndex = page * PAGE_SIZE + PAGE_SIZE;
-            if (startIndex < fff.length) {
+            if (startIndex < Images.imageUrls.length) {
                 Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT)
                         .show();
-                if (endIndex > fff.length) {
-                    endIndex = fff.length;
+                if (endIndex > Images.imageUrls.length) {
+                    endIndex = Images.imageUrls.length;
                 }
                 for (int i = startIndex; i < endIndex; i++) {
                     LoadImageTask task = new LoadImageTask();
                     taskCollection.add(task);
-                    task.execute(fff[i]);
+                    task.execute(Images.imageUrls[i]);
                 }
                 page++;
             } else {
@@ -230,7 +230,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
                     task.execute(imageUrl);
                 }
             } else {
-               // imageView.setImageResource(R.drawable.xz_01);
+             //   imageView.setImageResource(R.drawable.xz_01);
             }
         }
     }
@@ -248,7 +248,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
     /**
      * 异步下载图片的任务。
      *
-     * @author guolin
+     *
      */
     class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 
@@ -279,20 +279,11 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
             mImageUrl = params[0];
             File sceneFile = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
             String[] ff = sceneFile.list();
-            Uri uri = Uri.fromFile(sceneFile);
-            Bitmap imageBitmap =null;
-            for(int i = 0 ;i<ff.length;i++){
-
-                imageBitmap = imageLoader.getBitmapFromMemoryCache(ff[i]);
+            Images.imageUrls = ff;
+            Bitmap imageBitmap = imageLoader.getBitmapFromMemoryCache(mImageUrl);
                 if (imageBitmap == null) {
-                    imageBitmap = loadImage(ff[i]);
+                    imageBitmap = loadImage(mImageUrl);
                 }
-
-            }
-
-//            Bitmap imageBitmap = imageLoader
-//                    .getBitmapFromMemoryCache(mImageUrl);
-
             return imageBitmap;
         }
 
