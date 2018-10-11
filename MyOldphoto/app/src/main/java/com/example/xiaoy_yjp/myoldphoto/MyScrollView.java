@@ -2,6 +2,7 @@ package com.example.xiaoy_yjp.myoldphoto;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
@@ -184,18 +185,20 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
      */
     public void loadMoreImages() {
         if (hasSDCard()) {
+            File sceneFile = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
+            String[] fff = sceneFile.list();
             int startIndex = page * PAGE_SIZE;
             int endIndex = page * PAGE_SIZE + PAGE_SIZE;
-            if (startIndex < Images.imageUrls.length) {
+            if (startIndex < fff.length) {
                 Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT)
                         .show();
-                if (endIndex > Images.imageUrls.length) {
-                    endIndex = Images.imageUrls.length;
+                if (endIndex > fff.length) {
+                    endIndex = fff.length;
                 }
                 for (int i = startIndex; i < endIndex; i++) {
                     LoadImageTask task = new LoadImageTask();
                     taskCollection.add(task);
-                    task.execute(Images.imageUrls[i]);
+                    task.execute(fff[i]);
                 }
                 page++;
             } else {
@@ -274,11 +277,22 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
         @Override
         protected Bitmap doInBackground(String... params) {
             mImageUrl = params[0];
-            Bitmap imageBitmap = imageLoader
-                    .getBitmapFromMemoryCache(mImageUrl);
-            if (imageBitmap == null) {
-                imageBitmap = loadImage(mImageUrl);
+            File sceneFile = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
+            String[] ff = sceneFile.list();
+            Uri uri = Uri.fromFile(sceneFile);
+            Bitmap imageBitmap =null;
+            for(int i = 0 ;i<ff.length;i++){
+
+                imageBitmap = imageLoader.getBitmapFromMemoryCache(ff[i]);
+                if (imageBitmap == null) {
+                    imageBitmap = loadImage(ff[i]);
+                }
+
             }
+
+//            Bitmap imageBitmap = imageLoader
+//                    .getBitmapFromMemoryCache(mImageUrl);
+
             return imageBitmap;
         }
 
