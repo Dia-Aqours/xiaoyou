@@ -1,10 +1,12 @@
 package com.example.xiaoy_yjp.myoldphoto;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,11 +14,15 @@ import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import java.io.File;
@@ -45,6 +51,9 @@ public class MainActivity extends BaseActivity  {
     String copyName;
     String copyNameF;
     String dir = Environment.getExternalStorageDirectory().getAbsolutePath() +"/picture/";
+    private Context context = null;
+    private PopupWindow popupWindow;
+    private int from = 0;
 
 
 
@@ -85,6 +94,15 @@ public class MainActivity extends BaseActivity  {
                 openPicture();
             }
         });
+
+        Button popLeftBtn = (Button)findViewById(R.id.menu);
+//        Button popRightBtn = (Button)findViewById(R.id.pop_right_btn);
+//        Button popBottomBtn = (Button)findViewById(R.id.pop_bottom_btn);
+        popLeftBtn.setOnClickListener(popClick);
+//        popRightBtn.setOnClickListener(popClick);
+//        popBottomBtn.setOnClickListener(popClick);
+
+
 
     }
     private void initView(){
@@ -256,6 +274,148 @@ public class MainActivity extends BaseActivity  {
     }
 
 
+
+
+    OnClickListener popClick = new OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()){
+                case R.id.menu:{
+                    from = Location.LEFT.ordinal();
+                    break;
+                }
+            }
+
+            //调用此方法，menu不会顶置
+            //popupWindow.showAsDropDown(v);
+            initPopupWindow();
+
+        }
+    };
+
+
+
+
+    /**
+     * 添加新笔记时弹出的popWin关闭的事件，主要是为了将背景透明度改回来
+     *
+     */
+    class popupDismissListener implements PopupWindow.OnDismissListener{
+
+        @Override
+        public void onDismiss() {
+            backgroundAlpha(1f);
+        }
+
+    }
+
+
+    protected void initPopupWindow(){
+        View popupWindowView = getLayoutInflater().inflate(R.layout.pop, null);
+        //内容，高度，宽度
+        if(Location.BOTTOM.ordinal() == from){
+            popupWindow = new PopupWindow(popupWindowView, WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        }else{
+            popupWindow = new PopupWindow(popupWindowView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.FILL_PARENT, true);
+        }
+        //动画效果
+        if(Location.LEFT.ordinal() == from){
+            popupWindow.setAnimationStyle(R.style.AnimationLeftFade);
+//        }else if(Location.RIGHT.ordinal() == from){
+//            popupWindow.setAnimationStyle(R.style.AnimationRightFade);
+//        }else if(Location.BOTTOM.ordinal() == from){
+//            popupWindow.setAnimationStyle(R.style.AnimationBottomFade);
+        }
+        //菜单背景色
+        ColorDrawable dw = new ColorDrawable(0xffffffff);
+        popupWindow.setBackgroundDrawable(dw);
+        //宽度
+        //popupWindow.setWidth(LayoutParams.WRAP_CONTENT);
+        //高度
+        //popupWindow.setHeight(LayoutParams.FILL_PARENT);
+        //显示位置
+        if(Location.LEFT.ordinal() == from){
+            popupWindow.showAtLocation(getLayoutInflater().inflate(R.layout.activity_main, null), Gravity.LEFT, 0, 500);
+        }else if(Location.RIGHT.ordinal() == from){
+            popupWindow.showAtLocation(getLayoutInflater().inflate(R.layout.activity_main, null), Gravity.RIGHT, 0, 500);
+        }else if(Location.BOTTOM.ordinal() == from){
+            popupWindow.showAtLocation(getLayoutInflater().inflate(R.layout.activity_main, null), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+        }
+        //设置背景半透明
+        backgroundAlpha(0.5f);
+        //关闭事件
+        popupWindow.setOnDismissListener(new popupDismissListener());
+
+        popupWindowView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+				/*if( popupWindow!=null && popupWindow.isShowing()){
+					popupWindow.dismiss();
+					popupWindow=null;
+				}*/
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+                return false;
+            }
+        });
+
+        Button open = (Button)popupWindowView.findViewById(R.id.open);
+        Button save = (Button)popupWindowView.findViewById(R.id.save);
+        Button close = (Button)popupWindowView.findViewById(R.id.close);
+
+
+        open.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Open", Toast.LENGTH_LONG).show();
+                popupWindow.dismiss();
+            }
+        });
+
+        save.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Open", Toast.LENGTH_LONG).show();
+                popupWindow.dismiss();
+            }
+        });
+
+        close.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Open", Toast.LENGTH_LONG).show();
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha)
+    {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
+    /**
+     * 菜单弹出方向
+     *
+     */
+    public enum Location {
+
+        LEFT,
+        RIGHT,
+        TOP,
+        BOTTOM;
+
+    }
 
 }
 
