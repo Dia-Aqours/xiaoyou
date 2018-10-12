@@ -99,6 +99,14 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
     private static int scrollViewHeight;
 
     /**
+     * 屏幕滚动速度。
+     */
+    public double speed = 0;
+
+
+
+
+    /**
      * 记录上垂直方向的滚动距离。
      */
     private static int lastScrollY = -1;
@@ -116,10 +124,12 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
         public void handleMessage(android.os.Message msg) {
             MyScrollView myScrollView = (MyScrollView) msg.obj;
             int scrollY = myScrollView.getScrollY();
+
             // 如果当前的滚动位置和上次相同，表示已停止滚动
             if (scrollY == lastScrollY) {
+
                 // 当滚动的最底部，并且当前没有正在下载的任务时，开始加载下一页的图片
-                if (scrollViewHeight + scrollY >= scrollLayout.getHeight()
+                if (scrollViewHeight + scrollY  >= scrollLayout.getHeight()
                         && taskCollection.isEmpty()) {
                     myScrollView.loadMoreImages();
                 }
@@ -128,6 +138,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
                 lastScrollY = scrollY;
                 Message message = new Message();
                 message.obj = myScrollView;
+
                 // 5毫秒后再次对滚动位置进行判断
                 handler.sendMessageDelayed(message, 5);
             }
@@ -187,6 +198,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
             File sceneFile = new File(Environment.getExternalStorageDirectory().getPath() + "/myImage/");
             String[] fff = sceneFile.list();
             Images.imageUrls = fff;
+
             int startIndex = page * PAGE_SIZE;
             int endIndex = page * PAGE_SIZE + PAGE_SIZE;
             if (startIndex < Images.imageUrls.length) {
@@ -230,7 +242,7 @@ public class MyScrollView extends ScrollView implements View.OnTouchListener {
                     task.execute(imageUrl);
                 }
             } else {
-             //   imageView.setImageResource(R.drawable.xz_01);
+                imageView.setImageResource(R.drawable.load);
             }
         }
     }

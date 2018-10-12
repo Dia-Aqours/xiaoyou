@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -54,7 +55,7 @@ public class MainActivity extends BaseActivity  {
     private Context context = null;
     private PopupWindow popupWindow;
     private int from = 0;
-
+    Bitmap newBitmap;
 
 
     @Override
@@ -246,7 +247,9 @@ public class MainActivity extends BaseActivity  {
 
                     cropImageUri = Uri.fromFile(fileCropUri);
                     PhotoUtils.cropImageUri(this, imageUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
-
+                    //getBitmapFromUri(cropImageUri);
+                  //  Bitmap newBitmap2 = GrayFilter.changeToGray(newBitmap,1);
+                    //cropImageUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), newBitmap, null,null));
                     break;
                 case CODE_GALLERY_REQUEST://访问相册完成回调
                     if (hasSdcard()) {
@@ -264,6 +267,22 @@ public class MainActivity extends BaseActivity  {
         }
     }
 
+
+    private Bitmap getBitmapFromUri(Uri uri)
+ {
+         try
+        {
+             // 读取uri所在的图片
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+            newBitmap = bitmap;
+            return bitmap;
+             }
+         catch (Exception e)
+         {
+             return null;
+             }
+
+         }
 
     /**
      * 检查设备是否存在SDCard的工具方法
