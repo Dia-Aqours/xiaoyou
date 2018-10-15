@@ -288,7 +288,10 @@ public class MainActivity extends BaseActivity  {
 
     }
 
-
+    /**
+     * 侧边栏弹出
+     *
+     */
     protected void initPopupWindow(){
         View popupWindowView = getLayoutInflater().inflate(R.layout.pop, null);
         //内容，高度，宽度
