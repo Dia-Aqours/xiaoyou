@@ -224,3 +224,33 @@ Fragment和Activity解除关联的时候调用。
 
 但需要注一点是：除了onCreateView，其他的所有方法如果你重写了，必须调用父类对于该方法的实现。
 
+然后看到fragment的用法也主要是两种 动态和静态
+静态主要是：
+1、继承Fragment，重写onCreateView决定Fragemnt的布局
+2、在Activity中声明此Fragment，就当和普通的View一样
+
+先写两个fragment的xml界面 然后在fragment类中onCreateView()声明return inflater.inflate(R.layout.fragment1, container, false)
+然后在main布局中写一个fragment的一个包围 加上android:name="com.example.fragmentdemo.Fragment1"  的引用
+基本可以了
+
+动态的就不直接在xml引用
+        Display display = getWindowManager().getDefaultDisplay();  
+        if (display.getWidth() > display.getHeight()) {  
+            Fragment1 fragment1 = new Fragment1();  
+            getFragmentManager().beginTransaction().replace(R.id.main_layout, fragment1).commit();  
+        } else {  
+            Fragment2 fragment2 = new Fragment2();  
+            getFragmentManager().beginTransaction().replace(R.id.main_layout, fragment2).commit();  
+        } 
+        在mian xml引入这样的
+1.获取到FragmentManager，在Activity中可以直接通过getFragmentManager得到。
+
+2.开启一个事务，通过调用beginTransaction方法开启。
+
+3.向容器内加入Fragment，一般使用replace方法实现，需要传入容器的id和Fragment的实例。
+
+4.提交事务，调用commit方法提交。
+
+
+
+
