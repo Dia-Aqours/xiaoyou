@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -22,10 +21,8 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,28 +31,65 @@ import java.util.Date;
 
 
 public class MainActivity extends BaseActivity  {
-    private ImageButton ib1;
-    private ImageButton ib4;
+    /**
+     * 主页前往设置的按钮
+     */
+    private ImageButton main_Goto_setting;
+
+    /**
+     * 主页前往相册的按钮
+     */
+    private ImageButton main_Goto_Album;
+
+    /**
+     * 主页前往照相的按钮
+     */
     private ImageButton btnTakePhoto;
-    private Button  ib6;
-    private ImageView photo;
-    private final int RC_CAMERA = 1;
-    private final int RC_ALBUM = 2;
+
+    /**
+     * 相册的请求码
+     */
     private static final int CODE_GALLERY_REQUEST = 0xa0;
+
+    /**
+     * 相机的请求码
+     */
     private static final int CODE_CAMERA_REQUEST = 0xa1;
+
+    /**
+     * 拍照完成的请求码
+     */
     private static final int CODE_RESULT_REQUEST = 0xa2;
+
+    /**
+     * 裁剪之前拍照后的暂时存储地
+     */
     File fileUri = new File(Environment.getExternalStorageDirectory().getPath()  + "/picture2/photo.jpg");
-    private Uri cUri;
+
+    /**
+     * 裁剪之前拍照后的暂时存储地的uri
+     */
     private Uri imageUri;
+
+    /**
+     * 裁剪之后的照片的uri
+     */
     private Uri cropImageUri;
-    String s = Environment.getExternalStorageDirectory().getAbsolutePath() + "/picture2/photo.jpg";
-    String copyName;
+
+    /**
+     * 以时间命名后的图片路径
+     */
     String copyNameF;
-    String dir = Environment.getExternalStorageDirectory().getAbsolutePath() +"/picture/";
+
+
     private Context context = null;
+
+    /**
+     * 侧菜单
+     */
     private PopupWindow popupWindow;
     private int from = 0;
-    Bitmap newBitmap;
+
 
 
     @Override
@@ -63,31 +97,28 @@ public class MainActivity extends BaseActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //view层的控件和业务层的控件，靠id关联和映射  给ib1赋值，即设置布局文件中的Button按钮Iimageid进行关联
-        ib1 = (ImageButton)findViewById(R.id.iB1);
-        ib1.setOnClickListener(new OnClickListener(){ //给ib1绑定监听事件
+        //view层的控件和业务层的控件，靠id关联和映射  给main_Goto_setting赋值，即设置布局文件中的Button按钮Iimageid进行关联
+        main_Goto_setting = findViewById(R.id.main_Goto_setting);
+        main_Goto_setting.setOnClickListener(new OnClickListener(){ //给main_Goto_setting绑定监听事件
             @Override
             public void onClick(View v1){
-                Intent intent1 = new Intent(MainActivity.this,setting.class) ; //给ib1添加响应事件
+                Intent intent1 = new Intent(MainActivity.this,setting.class) ; //给main_Goto_setting添加响应事件
                 startActivity(intent1); //启动
             }
 
         });
 
-        //view层的控件和业务层的控件，靠id关联和映射  给ib1赋值，即设置布局文件中的Button按钮Iimageid进行关联
-        ib4 = (ImageButton)findViewById(R.id.iB4);
-        ib4.setOnClickListener(new OnClickListener(){ //给ib1绑定监听事件
+        //view层的控件和业务层的控件，靠id关联和映射  给main_Goto_Album赋值，即设置布局文件中的Button按钮Iimageid进行关联
+        main_Goto_Album = findViewById(R.id.main_Goto_Album);
+        main_Goto_Album.setOnClickListener(new OnClickListener(){ //给main_Goto_Album绑定监听事件
             @Override
             public void onClick(View v6){
-                Intent intent6 = new Intent(MainActivity.this,MyPhotoActivity.class) ; //给ib1添加响应事件
+                Intent intent6 = new Intent(MainActivity.this,MyPhotoActivity.class) ; //给main_Goto_setting添加响应事件
                 startActivity(intent6); //启动
             }
 
         });
 
-        ImageButton btnTakePhoto = (ImageButton) findViewById(R.id.iB5);
-        Button btnTakeGallery = (Button) findViewById(R.id.iB6);
-        photo = (ImageView) findViewById(R.id.photo);
         initView();
         btnTakePhoto.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -96,7 +127,7 @@ public class MainActivity extends BaseActivity  {
             }
         });
 
-        Button popLeftBtn = (Button)findViewById(R.id.menu);
+        Button popLeftBtn = findViewById(R.id.menu);
 //        Button popRightBtn = (Button)findViewById(R.id.pop_right_btn);
 //        Button popBottomBtn = (Button)findViewById(R.id.pop_bottom_btn);
         popLeftBtn.setOnClickListener(popClick);
@@ -107,60 +138,10 @@ public class MainActivity extends BaseActivity  {
 
     }
     private void initView(){
-        btnTakePhoto = findViewById(R.id.iB5);
+        btnTakePhoto = findViewById(R.id.main_Select_Photo);
     }
 
-    public void isfileExists() {
-            //得到文件名和后缀名
-            File fileUri = new File(Environment.getExternalStorageDirectory().getPath() + "/picture2/photo 0.jpg");
-            copyNameF = "photo 0.jpg";
-            while (fileUri.exists()){
 
-                int num = 0;
-                String name[] = fileUri.getName().split(" ");//分割
-                String fileName = name[0];
-                String fileExt = name[1];
-                //判断文件名是否包含我们定义副本规范的标记字符（空格）
-                if (fileExt.contains(".")) { //如果文件名包涵，进行判断是否已经为副本名称
-                    //得到end
-                    String array[] = fileExt.split("\\.");
-                    String end = array[0]; //得到标记字符前面的值
-                    //确保end得到的是最后面的值（防止出现类似路径中的目录也有标记字符的情况，如："mnt/sda/wo de/zhao pian/我的 照片 1.png"）
-//                    while (end.contains(".")) {
-//                    array = fileExt.split("\\.");
-//                    end = array[0];
-//                }
-                    //判断标记字符前的字符串是否复合规范（是否是数字）
-                    boolean isDigit = end.matches("[0-9]+"); //用正则表达式判断是否是正整数
-                    if (isDigit) {
-                        try {
-                            int index = Integer.parseInt(end) + num; //递增副本记数
-                            //  int position = fileExt.lastIndexOf("."); //得到最后的空格的位置，用于截取前面的字符串
-                            if (index != -1) {
-                                //构造新的副本名（数字递增）
-                                copyName = String.valueOf(index);
-                            }
-                        } catch (Exception e) { //转化成整形错误
-                            e.printStackTrace();
-                        }
-                    } else { //如果空格后不是纯数字，即不为我们定义副本的规范
-                        //构造新的副本名（数字初始为1）
-                        copyName = fileName + " 1";
-                    }
-                } else { //如果没有，则变为副本名称格式
-                    //构造新的副本名（数字初始为1）
-                    copyName = fileName + " 1";
-                }
-                //返回副本名+后缀名
-                copyNameF = fileName +" "+copyName +".jpg";
-                fileUri  = new File(Environment.getExternalStorageDirectory().getPath()  + "/picture2/"+copyNameF);
-                num++;
-            }
-
-
-
-
-        } //愚蠢的改名接口 已经放弃
     private void openPicture(){
 
         AlertDialog.Builder builder = new  AlertDialog.Builder(MainActivity.this);
@@ -267,23 +248,6 @@ public class MainActivity extends BaseActivity  {
         }
     }
 
-
-    private Bitmap getBitmapFromUri(Uri uri)
- {
-         try
-        {
-             // 读取uri所在的图片
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            newBitmap = bitmap;
-            return bitmap;
-             }
-         catch (Exception e)
-         {
-             return null;
-             }
-
-         }
-
     /**
      * 检查设备是否存在SDCard的工具方法
      */
@@ -291,8 +255,6 @@ public class MainActivity extends BaseActivity  {
         String state = Environment.getExternalStorageState();
         return state.equals(Environment.MEDIA_MOUNTED);
     }
-
-
 
 
     OnClickListener popClick = new OnClickListener() {
@@ -305,15 +267,12 @@ public class MainActivity extends BaseActivity  {
                     break;
                 }
             }
-
             //调用此方法，menu不会顶置
             //popupWindow.showAsDropDown(v);
             initPopupWindow();
 
         }
     };
-
-
 
 
     /**
@@ -380,9 +339,9 @@ public class MainActivity extends BaseActivity  {
             }
         });
 
-        Button open = (Button)popupWindowView.findViewById(R.id.open);
-        Button save = (Button)popupWindowView.findViewById(R.id.save);
-        Button close = (Button)popupWindowView.findViewById(R.id.close);
+        Button open = popupWindowView.findViewById(R.id.open);
+        Button save = popupWindowView.findViewById(R.id.save);
+        Button close = popupWindowView.findViewById(R.id.close);
 
 
         open.setOnClickListener(new OnClickListener() {
@@ -423,6 +382,7 @@ public class MainActivity extends BaseActivity  {
         lp.alpha = bgAlpha; //0.0-1.0
         getWindow().setAttributes(lp);
     }
+
     /**
      * 菜单弹出方向
      *

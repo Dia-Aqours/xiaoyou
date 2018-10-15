@@ -94,7 +94,7 @@
 
 
     <ImageButton
-        android:id="@+id/iB5"
+        android:id="@+id/main_Select_Photo"
         android:layout_width="488dp"
         android:layout_height="76dp"
         android:layout_weight="1"
@@ -106,7 +106,7 @@
         app:srcCompat="@mipmap/ic_scanning" />
 
     <ImageButton
-        android:id="@+id/iB4"
+        android:id="@+id/main_Goto_Album"
         android:layout_width="490dp"
         android:layout_height="75dp"
         android:layout_weight="1"
@@ -118,7 +118,7 @@
         app:srcCompat="@mipmap/ic_photos" />
 
     <ImageButton
-        android:id="@+id/iB1"
+        android:id="@+id/main_Goto_setting"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#00000000"
@@ -154,7 +154,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <ImageView
-        android:id="@+id/photo"
+        android:id="@+id/test_menu"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -162,15 +162,5 @@
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_round" />
-
-    <Button
-        android:id="@+id/iB6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#00000000"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 </android.support.constraint.ConstraintLayout>

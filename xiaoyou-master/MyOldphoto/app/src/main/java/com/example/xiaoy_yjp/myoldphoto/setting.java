@@ -12,34 +12,34 @@ import android.widget.Toast;
 import android.view.View;
 
 public class setting extends AppCompatActivity {
-    private ImageButton ib2;
-    private Button b2;
-    private Button b3;
-    private Button b4;
-    private Button b5;
+    /**
+     * 设置界面的退出按钮
+     */
+    private ImageButton setting_exit;
+
+    /**
+     * 设置界面的发送QQ消息按钮
+     */
+    private Button QQ_send;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
         //view层的控件和业务层的控件，靠id关联和映射  给ib1赋值，即设置布局文件中的Button按钮Iimageid进行关联
-        ib2 = (ImageButton) findViewById(R.id.iB2);
-
-        ib2.setOnClickListener(new OnClickListener() { //给ib1绑定监听事件
+        setting_exit = findViewById(R.id.setting_exit);
+        setting_exit.setOnClickListener(new OnClickListener() { //给ib1绑定监听事件
             @Override
-            public void onClick(View vv) {
+            public void onClick(View v) {
                 Intent intent2 = new Intent(setting.this, MainActivity.class); //给ib1添加响应事件
                 startActivity(intent2); //启动
             }
 
         });
 
-        b2 = (Button) findViewById(R.id.button2);
-        b3 = (Button) findViewById(R.id.button3);
-        b4 = (Button) findViewById(R.id.button4);
-        b5 = (Button) findViewById(R.id.button5);
-
-        b2.setOnClickListener(new OnClickListener() {
+        QQ_send = findViewById(R.id.QQ_send);
+        QQ_send.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url="mqqwpa://im/chat?chat_type=wpa&uin=7403754";
