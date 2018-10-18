@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private void initEvent() {
         imageInfoList = new ArrayList<>();
         imageInfoList.add(new ImageInfo(1, "酒店广告1，公告1", "", "http://d.hiphotos.baidu.com/image/pic/item/6159252dd42a2834a75bb01156b5c9ea15cebf2f.jpg", "http://www.cnblogs.com/luhuan/"));
-        imageInfoList.add(new ImageInfo(1, "酒店广告2，公告2", "", "http://c.hiphotos.baidu.com/image/h%3D300/sign=cfce96dfa251f3dedcb2bf64a4eff0ec/4610b912c8fcc3ce912597269f45d688d43f2039.jpg", "http://www.cnblogs.com/luhuan/"));
-        imageInfoList.add(new ImageInfo(1, "酒店广告3，公告3", "", "http://e.hiphotos.baidu.com/image/pic/item/6a600c338744ebf85ed0ab2bd4f9d72a6059a705.jpg", "http://www.cnblogs.com/luhuan/"));
-        imageInfoList.add(new ImageInfo(1, "酒店广告4，公告4", "仅展示", "http://b.hiphotos.baidu.com/image/h%3D300/sign=8ad802f3801001e9513c120f880e7b06/a71ea8d3fd1f4134be1e4e64281f95cad1c85efa.jpg", ""));
-        imageInfoList.add(new ImageInfo(1, "酒店广告5，公告5", "仅展示", "http://e.hiphotos.baidu.com/image/h%3D300/sign=73443062281f95cab9f594b6f9177fc5/72f082025aafa40fafb5fbc1a664034f78f019be.jpg", ""));
+        imageInfoList.add(new ImageInfo(1, "酒店广告2，公告2", "", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540447617&di=feec3c9fc21a97bb0cd02eba3cf92a59&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.wallcoo.com%2Fcartoon%2Ffuture_tech_background%2Fwallpapers%2F1920x1200%2F%255Bwallcoo_com%255D_3537_future_TECH_Image.jpg", "http://www.cnblogs.com/luhuan/"));
+        imageInfoList.add(new ImageInfo(1, "酒店广告3，公告3", "", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1540447576&di=847ecce2f4657b94236a5205ceccf8cc&imgtype=jpg&er=1&src=http%3A%2F%2Fuploads.5068.com%2Fallimg%2F151024%2F48-151024134134-50.jpg", "http://www.cnblogs.com/luhuan/"));
+        imageInfoList.add(new ImageInfo(1, "酒店广告4，公告4", "仅展示", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539852742788&di=b4882ca2012e7cd055013c856e8eae16&imgtype=0&src=http%3A%2F%2Fimg5q.duitang.com%2Fuploads%2Fitem%2F201302%2F05%2F20130205191740_85ada.jpeg", ""));
+        imageInfoList.add(new ImageInfo(1, "酒店广告5，公告5", "仅展示", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539852832184&di=fcee60f1dbc7a51aaa3a38d37c699c23&imgtype=0&src=http%3A%2F%2Fimg14.poco.cn%2Fmypoco%2Fmyphoto%2F20130217%2F15%2F65835566201302171524102449422322537_024.jpg", ""));
 
 
     }

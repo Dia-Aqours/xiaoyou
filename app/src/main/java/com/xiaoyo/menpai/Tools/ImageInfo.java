@@ -12,17 +12,15 @@ package com.xiaoyo.menpai.Tools;
 public class ImageInfo {
     private int id;
     private String title;
+
     private String date;
     private String image;
     private String url;
 
-    public ImageInfo() {
-    }
-
     public ImageInfo(int id, String title, String date, String image, String url) {
         this.id = id;
         this.title = title;
-            
+
         this.date = date;
         this.image = image;
     }
