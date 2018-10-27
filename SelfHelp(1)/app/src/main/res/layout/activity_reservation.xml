@@ -32,8 +32,19 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/img"
+    <!--<ImageView-->
+        <!--android:id="@+id/img"-->
+        <!--android:layout_width="1056dp"-->
+        <!--android:layout_height="669dp"-->
+        <!--android:layout_marginStart="@dimen/dp_62"-->
+        <!--android:layout_marginTop="201dp"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/relativeLayout3"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/relativeLayout3"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@mipmap/default_room"/>-->
+
+    <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/banner"
         android:layout_width="1056dp"
         android:layout_height="669dp"
         android:layout_marginStart="@dimen/dp_62"
@@ -41,7 +52,7 @@
         app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
         app:layout_constraintTop_toTopOf="@+id/relativeLayout3"
         android:scaleType="fitXY"
-        android:src="@mipmap/default_room"/>
+        />
 
     <TextView
         android:id="@+id/name"

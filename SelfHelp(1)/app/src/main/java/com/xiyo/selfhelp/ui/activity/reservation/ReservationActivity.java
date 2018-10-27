@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +16,7 @@ import com.xiyo.selfhelp.Constant.RawsConstants;
 import com.xiyo.selfhelp.MyApplication;
 import com.xiyo.selfhelp.R;
 import com.xiyo.selfhelp.data.manager.IMAudioManager;
+import com.xiyo.selfhelp.data.model.BannerResult;
 import com.xiyo.selfhelp.data.model.EmptyRoom;
 import com.xiyo.selfhelp.data.model.ReservationModel;
 import com.xiyo.selfhelp.data.model.Token;
@@ -27,9 +27,9 @@ import com.xiyo.selfhelp.utils.DeviceUtil;
 import com.xiyo.selfhelp.utils.DoubleClickUtil;
 import com.xiyo.selfhelp.utils.TimeUtil;
 import com.xiyo.selfhelp.widget.GlideImageLoader;
+import com.youth.banner.Banner;
 
-import java.sql.Time;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +44,16 @@ import cn.aigestudio.datepicker.views.DatePicker;
 
 public class ReservationActivity extends BaseActivity implements ReservationMvpView {
 
+
+    @BindView(R.id.banner)
+    Banner banner;
+
+
     @BindView(R.id.back)
     RelativeLayout back;
 
-    @BindView(R.id.img)
-    ImageView img;
+//    @BindView(R.id.img)
+//    ImageView img;
 
     @BindView(R.id.name)
     TextView name;
@@ -79,6 +84,7 @@ public class ReservationActivity extends BaseActivity implements ReservationMvpV
     GlideImageLoader imageLoader = new GlideImageLoader();
 
     private int total;
+    List<String> images;
     private double total_price;
 
     @Override
@@ -111,6 +117,12 @@ public class ReservationActivity extends BaseActivity implements ReservationMvpV
     @Override
     public void loginSuccess(Token token) {
         MyApplication.setToken(this, token);
+//        Map<String, String > fields = new HashMap<>();
+//        String deviceno = DeviceUtil.getUUID(this);
+//        fields.put("DeviceNo", deviceno);
+//        fields.put("Bearer", token.getAccess_token());
+//        fields.put("owner", "Xiezhu_Kiosk_Front");
+//        mReservationPresenter.getBanner(fields);
         reservation(token);
     }
 
@@ -189,16 +201,19 @@ public class ReservationActivity extends BaseActivity implements ReservationMvpV
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("data");
         model = (ReservationModel)bundle.get("data");
+        imageLoader = new GlideImageLoader();
+        images = new ArrayList<>();
         initView();
     }
 
     private void initView(){
         List<String> imgs = model.getRoomTypeImgs();
-        Log.i(TAG, "setText: imgs = " + imgs);
-        String url = imgs != null && imgs.size() != 0 ? model.getRoomTypeImgs().get(0) : "";
-        if(!url.isEmpty()){
-            imageLoader.displayImage(this, url, img);
-        }
+        banner(imgs);
+//        Log.i(TAG, "setText: imgs = " + imgs);
+//        String url = imgs != null && imgs.size() != 0 ? model.getRoomTypeImgs().get(0) : "";
+//        if(!url.isEmpty()){
+//            imageLoader.displayImage(this, url, img);
+//        }
         name.setText(model.getRoomTypeName());
         price_min.setText(model.getDailyFees().getFee() + "");
         setText(1);
@@ -292,5 +307,28 @@ public class ReservationActivity extends BaseActivity implements ReservationMvpV
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setContentView(picker, params);
         dialog.getWindow().setGravity(Gravity.CENTER);
+    }
+
+    @Override
+    public void showBanner(BannerResult bannerResult) {
+        if(bannerResult != null && bannerResult.getData() != null){
+            for(int i = 0; i < bannerResult.getData().size(); i ++ ){
+                Log.i(TAG, "showBanner: " + bannerResult.getData().get(i));
+                images.add(bannerResult.getData().get(i).getImgUrl());
+            }
+            banner(images);
+        }
+    }
+
+    @Override
+    public void showBannerError(String error) {
+        Toast.makeText(this, "网络出错", Toast.LENGTH_SHORT).show();
+    }
+
+    private void banner(List<String> images){
+        banner.setImages(images)
+                .setImageLoader(imageLoader)
+//                .setOnBannerListener(this)
+                .start();
     }
 }
