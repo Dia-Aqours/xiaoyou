@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\work\SelfHelp(1)\common-silent\src\main\jniLibs"/></dataSet><dataSet config="offline"><source path="F:\work\SelfHelp(1)\common-silent\src\offline\jniLibs"/></dataSet><dataSet config="debug"><source path="F:\work\SelfHelp(1)\common-silent\src\debug\jniLibs"/></dataSet><dataSet config="offlineDebug"><source path="F:\work\SelfHelp(1)\common-silent\src\offlineDebug\jniLibs"/></dataSet></merger>
