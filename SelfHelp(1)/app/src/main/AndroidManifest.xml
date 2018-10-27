@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~    Copyright (C) 2018 MINDORKS NEXTGEN PRIVATE LIMITED
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xiyo.selfhelp">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".ui.activity.MainActivity">
+        </activity>
+
+        <activity android:name=".ui.activity.main.LaunchActivity"
+            android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        //自助订房
+        <activity android:name=".ui.activity.reservation.SelectActivity" />
+        <activity android:name=".ui.activity.reservation.ReservationActivity" />
+        <activity android:name=".ui.activity.reservation.ReservationResultActivity" />
+        <activity android:name=".ui.activity.reservation.ReComparisonActivity" />
+        <activity android:name=".ui.activity.reservation.OrderInfoActivity" />
+        <activity android:name=".ui.activity.reservation.WeiPayActivity" />
+        <activity android:name=".ui.activity.reservation.AliPayActivity" />
+        <activity android:name=".ui.activity.reservation.PayResultActivity" />
+
+        //续住
+        <activity android:name=".ui.activity.stayin.StayComparisonActivity" />
+        <activity android:name=".ui.activity.stayin.StaySelectActivity" />
+        <activity android:name=".ui.activity.stayin.StayNoRoomActivity" />
+        <activity android:name=".ui.activity.stayin.StayOrderInfoActivity" />
+        <activity android:name=".ui.activity.stayin.StayPayResultActivity" />
+        <activity android:name=".ui.activity.stayin.StayReservationActivity" />
+        <activity android:name=".ui.activity.stayin.StayWeiPayActivity" />
+        <activity android:name=".ui.activity.stayin.StayAliPayActivity" />
+
+        //退房
+        <activity android:name=".ui.activity.checkout.OutComparisonActivity" />
+        <activity android:name=".ui.activity.checkout.OutReservationActivity" />
+        <activity android:name=".ui.activity.checkout.OutSelectActivity" />
+        <activity android:name=".ui.activity.checkout.OutNoRoomActivity" />
+        <activity android:name=".ui.activity.checkout.OutPayResultActivity" />
+
+        //订单入住
+        <activity android:name=".ui.activity.order.OrderComparisonActivity" />
+        <activity android:name=".ui.activity.order.OrderSelectActivity" />
+        <activity android:name=".ui.activity.order.OrderNoRoomActivity" />
+        <activity android:name=".ui.activity.order.OrderReservationActivity" />
+        <activity android:name=".ui.activity.order.OrderReComparisonActivity" />
+        <activity android:name=".ui.activity.order.OrderPayResultActivity" />
+
+        //获取房卡
+        <activity android:name=".ui.activity.card.CardComparisonActivity" />
+        <activity android:name=".ui.activity.card.CardQrcedActivity" />
+        <activity android:name=".ui.activity.card.CardNoRoomActivity" />
+
+        //人证比对
+        <activity android:name=".ui.activity.comparsion.ComparisonActivity" />
+
+        //设置
+        <activity android:name=".ui.activity.settings.SettingsActivity" />
+        <activity android:name=".ui.activity.settings.BaseSettingsActivity" />
+        <service
+            android:name=".service.FloatService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <service
+            android:name=".service.FloatBallAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibilityservice"/>
+        </service>
+
+        <service android:name=".service.AlarmService" >
+        </service>
+
+        <receiver android:name=".receiver.AlarmReceiver" >
+        </receiver>
+        <receiver android:name=".receiver.BootCompleteReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

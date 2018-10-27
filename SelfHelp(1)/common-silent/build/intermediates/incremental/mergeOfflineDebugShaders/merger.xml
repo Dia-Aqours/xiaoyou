@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="F:\work\SelfHelp(1)\common-silent\src\main\shaders"/></dataSet><dataSet config="offline"><source path="F:\work\SelfHelp(1)\common-silent\src\offline\shaders"/></dataSet><dataSet config="debug"><source path="F:\work\SelfHelp(1)\common-silent\src\debug\shaders"/></dataSet><dataSet config="offlineDebug"><source path="F:\work\SelfHelp(1)\common-silent\src\offlineDebug\shaders"/></dataSet></merger>

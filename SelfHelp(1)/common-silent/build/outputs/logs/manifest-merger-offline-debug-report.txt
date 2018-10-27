@@ -1,0 +1,35 @@
+-- Merging decision tree log ---
+manifest
+ADDED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+	package
+		ADDED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:11-48
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+		ADDED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+		ADDED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml:1:1-51
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+uses-sdk
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+		ADDED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+		ADDED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
+		INJECTED from F:\work\SelfHelp(1)\common-silent\src\main\AndroidManifest.xml
